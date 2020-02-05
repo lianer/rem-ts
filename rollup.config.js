@@ -1,5 +1,4 @@
 const path = require('path');
-// const typescript = require('@rollup/plugin-typescript');
 const babel = require('rollup-plugin-babel');
 const rimraf = require('rimraf');
 const nodeResolve = require('@rollup/plugin-node-resolve');
@@ -19,7 +18,6 @@ module.exports = {
     file: resolve('./', pkg.main),
     format: 'esm',
   },
-  // plugins: [typescript()]
   plugins: [
     nodeResolve({
       extensions,

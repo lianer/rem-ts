@@ -18,7 +18,7 @@ interface Config {
   min?: number; // rem 布局最小宽度
   num?: number; // rem 布局分割块数
   delay?: number; // 各类事件触发 resize 的时间间隔
-  [key: string]: number
+  [key: string]: number;
 }
 
 class Rem {
@@ -38,7 +38,7 @@ class Rem {
 
     window.addEventListener('resize', () => {
       clearTimeout(timer);
-      timer = setTimeout(::this.resize, this.config.delay);
+      timer = setTimeout(this.resize.bind(this), this.config.delay);
     });
 
     if (navigator.userAgent.indexOf('Android') > -1) {
