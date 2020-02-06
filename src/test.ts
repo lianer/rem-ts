@@ -8,7 +8,7 @@
 // const calcAge = Symbol('calcAge'); 在 es5 compile library 中不支持 Symbol，可以在 tsconfig.json 中将 targe 改为 es2015 及以上版本
 const calcAge = 'calcAge';
 
-const sum = function(a: number, b: number) {
+const sum = function(a, b): number {
   return a + b;
 };
 
@@ -30,15 +30,15 @@ class Parent {
     return Parent.thisYear - this.birth;
   }
 
-  sayName() {
+  sayName(): void {
     console.log(this.name);
   }
 
-  sayWorld() {
+  sayWorld(): void {
     console.log('world');
   }
 
-  static sayHello() {
+  static sayHello(): void {
     console.log('hello');
   }
 }
@@ -50,9 +50,11 @@ class Child extends Parent {
     this.sayWorld();
   }
 
-  static sayHi() {
+  static sayHi(): void {
     super.sayHello();
   }
 }
 
 const child = new Child();
+
+console.log(child);

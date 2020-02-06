@@ -22,7 +22,7 @@ interface Config {
 }
 
 class Rem {
-  private styleEl: any;
+  private styleEl: HTMLStyleElement;
   private size: number;
   private config: Config = {
     max: 640,
@@ -38,7 +38,7 @@ class Rem {
 
     window.addEventListener('resize', () => {
       clearTimeout(timer);
-      timer = setTimeout(this.resize.bind(this), this.config.delay);
+      timer = window.setTimeout(this.resize.bind(this), this.config.delay);
     });
 
     if (navigator.userAgent.indexOf('Android') > -1) {

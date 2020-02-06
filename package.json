@@ -8,7 +8,7 @@
   "author": "lianer",
   "license": "MIT",
   "scripts": {
-    "lint:ts": "tsc ./src/** --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts}'",
     "dev": "rollup -w -c rollup.config.js",
     "build": "rollup -c rollup.config.js"
   },
@@ -21,7 +21,8 @@
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-typescript": "^7.8.3",
     "@rollup/plugin-node-resolve": "^7.1.1",
-    "babel-eslint": "^10.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
     "eslint": "^6.8.0",
     "husky": ">=4",
     "lint-staged": ">=10",
@@ -37,8 +38,11 @@
     }
   },
   "lint-staged": {
-    "*.{ts}": "tsc ./src/** --noEmit",
-    "*.{ts,js,css,md}": "prettier --write"
+    "*.{js,ts,json,css,less,md}": [
+      "prettier --write",
+      "yarn lint",
+      "git add"
+    ]
   },
   "dependencies": {}
 }
