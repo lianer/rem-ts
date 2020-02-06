@@ -8,11 +8,11 @@
 // const calcAge = Symbol('calcAge'); 在 es5 compile library 中不支持 Symbol，可以在 tsconfig.json 中将 targe 改为 es2015 及以上版本
 const calcAge = 'calcAge';
 
-interface Parent {
-  thisYear: number;
-  sayHello: Function;
-  [key: string]: string | number | Function | symbol | Array<string>;
-}
+const sum = function(a: number, b: number) {
+  return a + b;
+};
+
+sum(1, 2);
 
 class Parent {
   private name = 'parent';
