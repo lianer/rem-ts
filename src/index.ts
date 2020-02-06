@@ -1,12 +1,9 @@
 /**
  * @Author: Lianer
  * @Email: lianer@live.cn
- * @Date: 2020-02-04 14:24:43
- * @LastEditTime : 2020-02-04 22:17:56
  * @Description: 微医弹性 CSS 布局，适用于移动端项目
- */
-
-/**
+ * @examples:
+ *
  * // 使用方法
  * import '@weiyi/rem'; // 在项目的入口文件顶部引入此文件即可使用（确保在页面开始渲染之前加载完成，部分浏览器不支持动态 rem 计算）
  *
@@ -25,7 +22,7 @@ interface Config {
 }
 
 class Rem {
-  private styleEl: any;
+  private styleEl: HTMLStyleElement;
   private size: number;
   private config: Config = {
     max: 640,
@@ -41,7 +38,7 @@ class Rem {
 
     window.addEventListener('resize', () => {
       clearTimeout(timer);
-      timer = setTimeout(() => this.resize(), this.config.delay);
+      timer = window.setTimeout(this.resize.bind(this), this.config.delay);
     });
 
     if (navigator.userAgent.indexOf('Android') > -1) {
@@ -89,9 +86,7 @@ class Rem {
     if (newConfig) {
       let a: string;
       for (a in newConfig) {
-        if (this.config.hasOwnProperty(a)) {
-          this.config[a] = (newConfig as Config)[a];
-        }
+        this.config[a] ?? newConfig[a];
       }
     }
     this.resize();

@@ -2,29 +2,47 @@
   "name": "rem",
   "version": "1.0.0",
   "description": "基于 css rem，适用于移动端的弹性布局方案",
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "main": "lib/rem.umd.js",
+  "module": "lib/rem.esm.js",
   "typings": "types/index.d.ts",
   "author": "lianer",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack -w",
-    "build": "webpack"
+    "lint": "eslint 'src/**/*.{js,ts}'",
+    "dev": "rollup -w -c --environment FORMAT:esm",
+    "build:esm": "rollup -c --environment FORMAT:esm",
+    "build:umd": "rollup -c --environment FORMAT:umd",
+    "build:min": "rollup -c --environment FORMAT:min",
+    "build": "rimraf lib/* && run-p build:esm build:umd build:min"
+  },
+  "files": [
+    "lib",
+    "types/*.d.ts"
+  ],
+  "dependencies": {
+    "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-function-bind": "^7.8.3",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
+    "@babel/plugin-proposal-private-methods": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "fork-ts-checker-webpack-plugin": "^4.0.3",
     "husky": ">=4",
     "lint-staged": ">=10",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.5",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "rimraf": "^3.0.1",
+    "rollup": "^1.31.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-uglify": "^6.0.4",
+    "typescript": "^3.7.5"
   },
   "husky": {
     "hooks": {
@@ -32,6 +50,9 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*./src/**/*.{js,ts,json,css,less,md}": [
+      "prettier --write",
+      "yarn lint"
+    ]
   }
 }
