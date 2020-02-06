@@ -34,7 +34,7 @@ class Rem {
   constructor() {
     this.styleEl = document.head.appendChild(document.createElement('style'));
 
-    let timer: any;
+    let timer: number;
 
     window.addEventListener('resize', () => {
       clearTimeout(timer);
