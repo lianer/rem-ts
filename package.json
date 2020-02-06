@@ -2,15 +2,25 @@
   "name": "rem",
   "version": "1.0.0",
   "description": "基于 css rem，适用于移动端的弹性布局方案",
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "main": "lib/rem.umd.js",
+  "module": "lib/rem.esm.js",
   "typings": "types/index.d.ts",
   "author": "lianer",
   "license": "MIT",
   "scripts": {
     "lint": "eslint 'src/**/*.{js,ts}'",
-    "dev": "rollup -w -c rollup.config.js",
-    "build": "rollup -c rollup.config.js"
+    "dev": "rollup -w -c --environment FORMAT:esm",
+    "build:esm": "rollup -c --environment FORMAT:esm",
+    "build:umd": "rollup -c --environment FORMAT:umd",
+    "build:min": "rollup -c --environment FORMAT:min",
+    "build": "rimraf lib/* && run-p build:esm build:umd build:min"
+  },
+  "files": [
+    "lib",
+    "types/*.d.ts"
+  ],
+  "dependencies": {
+    "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -26,10 +36,12 @@
     "eslint": "^6.8.0",
     "husky": ">=4",
     "lint-staged": ">=10",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.1",
     "rollup": "^1.31.0",
     "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-uglify": "^6.0.4",
     "typescript": "^3.7.5"
   },
   "husky": {
@@ -42,6 +54,5 @@
       "prettier --write",
       "yarn lint"
     ]
-  },
-  "dependencies": {}
+  }
 }
