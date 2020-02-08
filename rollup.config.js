@@ -11,11 +11,7 @@ const resolve = function(...args) {
   return path.resolve(__dirname, ...args);
 };
 
-const fileMap = {
-  esm: resolve(pkg.module),
-  umd: resolve(pkg.main),
-};
-
+// 打包任务的个性化配置
 const jobs = {
   esm: {
     output: {
@@ -40,6 +36,7 @@ const jobs = {
   },
 };
 
+// 从环境变量获取打包特征
 const mergeConfig = jobs[process.env.FORMAT || 'esm'];
 
 module.exports = merge(
